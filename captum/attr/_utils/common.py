@@ -86,10 +86,9 @@ def _format_input_baseline(  # type: ignore
 def _format_input_baseline(
     inputs: Union[Tensor, Tuple[Tensor, ...]], baselines: BaselineType
 ) -> Tuple[Tuple[Tensor, ...], Tuple[Union[Tensor, int, float], ...]]:
+    baselines = _format_callable_baseline(baselines, inputs)  #override to support callable baseline in feature ablation and occlusion
     inputs = _format_tensor_into_tuples(inputs)
-    baselines = _format_baseline(baselines, inputs)
     return inputs, baselines
-
 
 # This function can potentially be merged with the `format_baseline` function
 # however, since currently not all algorithms support baselines of type
